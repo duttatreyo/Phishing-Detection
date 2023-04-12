@@ -1391,7 +1391,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "def Phishing_Predictor(url_input, clf, decision_tree_classifier, random_forest_classifier , bagging_classifier_decision_tree, bagging_classifier_random_forest):\n",
+    "def Phishing_Predictor(url_input, clf, decision_tree_classifier, random_forest_classifier, mlp_classifier , bagging_classifier_decision_tree, bagging_classifier_random_forest):\n",
     "    features_created = []\n",
     "    label = 0\n",
     "    url = url_input.strip()\n",
@@ -1408,14 +1408,14 @@
     "    # Predict using decision tree with bagging\n",
     "    bdt_pred = bagging_classifier_decision_tree.predict(X)\n",
     "    # Predict using MLP model\n",
-    "    #mlp_pred = mlp_classifier.predict(X_test)\n",
+    "    mlp_pred = mlp_classifier.predict(X_test)\n",
     "    #predict usning Random Forest with bagging\n",
     "    brf_pred= bagging_classifier_random_forest.predict(X)\n",
     "    # Predict using Random Forest Classifier\n",
     "    rf_pred =  random_forest_classifier.predict(X)\n",
     "\n",
     "    # Combine predictions using majority voting\n",
-    "    final_pred = int((lr_pred + dt_pred + rf_pred + brf_pred + bdt_pred) >= 2)\n",
+    "    final_pred = int((lr_pred + dt_pred + rf_pred+ mlp_pred + brf_pred + bdt_pred) >= 3)\n",
     "\n",
     "    if final_pred == 0:\n",
     "        print(\"Legitimate URL\")\n",
@@ -1440,7 +1440,7 @@
     }
    ],
    "source": [
-    "Phishing_Predictor(\"https://www.watergates.de/smcs.efn/ssrb.nts.php\",  clf, decision_tree_classifier, random_forest_classifier, bagging_classifier_decision_tree, bagging_classifier_random_forest)\n"
+    "Phishing_Predictor(\"https://www.watergates.de/smcs.efn/ssrb.nts.php\",  clf, decision_tree_classifier, random_forest_classifier, mlp_classifier ,bagging_classifier_decision_tree, bagging_classifier_random_forest)\n"
    ]
   },
   {
